@@ -62,6 +62,18 @@ app.get('/', function(req, res, next) {
 		var result = {'ip':req.ip};
 		//result['remote-address'] = req.connection.remoteAddress;
 
+		var geoip = require('geoip-lite');
+		 
+		var ip = "207.97.227.239";
+		var geo = geoip.lookup(ip);
+
+		result.location = {};
+		result.location.country = geo.country;
+		result.location.region = geo.region;
+		result.location.city = geo.city;
+		result.location.ll = geo.ll;
+		console.log(geo);
+		 
 		res.setHeader('Content-Type', 'application/json');
 		res.end(JSON.stringify(result)+ "\n");
 });
