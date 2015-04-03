@@ -11,6 +11,7 @@ var port = 3000;
  * Use Handlebars for templating
  */
 var exphbs = require('express3-handlebars');
+var geoip = require('geoip-lite');
 var hbs;
 
 // For gzip compression
@@ -60,19 +61,18 @@ app.set('view engine', 'handlebars');
 // Index Page
 app.get('/', function(req, res, next) {
 		var result = {'ip':req.ip};
-		//result['remote-address'] = req.connection.remoteAddress;
 
-		var geoip = require('geoip-lite');
-		 
 		var geo = geoip.lookup(result.ip);
 
 		result.location = {};
-		result.location.country = geo.country;
-		result.location.region = geo.region;
-		result.location.city = geo.city;
-		result.location.ll = geo.ll;
-		console.log(geo);
-		 
+
+		if (geo) {
+			result.location.country = geo.country;
+			result.location.region = geo.region;
+			result.location.city = geo.city;
+			result.location.ll = geo.ll;
+		}
+
 		res.setHeader('Content-Type', 'application/json');
 		res.end(JSON.stringify(result)+ "\n");
 });
