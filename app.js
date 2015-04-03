@@ -15,6 +15,7 @@ var hbs;
 
 // For gzip compression
 app.use(express.compress());
+app.enable('trust proxy')
 
 /*
  * Config for Production and Development
@@ -60,11 +61,7 @@ app.set('view engine', 'handlebars');
 app.get('/', function(req, res, next) {
 		var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 		var result = {'ip':ip};
-
-		if ('x-forwarded-for' in req.headers) {
-			result['remote-address'] = req.connection.remoteAddress;
-			result['x-forwarded-for'] = req.headers['x-forwarded-for'];
-		}
+		result['remote-address'] = req.connection.remoteAddress;
 
 		res.setHeader('Content-Type', 'application/json');
 		res.end(JSON.stringify(result)+ "\n");
