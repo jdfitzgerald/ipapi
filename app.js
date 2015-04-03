@@ -60,7 +60,7 @@ app.set('view engine', 'handlebars');
 // Index Page
 app.get('/', function(req, res, next) {
 		var result = {'ip':req.ip};
-		result['remote-address'] = req.connection.remoteAddress;
+		//result['remote-address'] = req.connection.remoteAddress;
 
 		res.setHeader('Content-Type', 'application/json');
 		res.end(JSON.stringify(result)+ "\n");
