@@ -59,8 +59,7 @@ app.set('view engine', 'handlebars');
  */
 // Index Page
 app.get('/', function(req, res, next) {
-		var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-		var result = {'ip':ip};
+		var result = {'ip':req.ip};
 		result['remote-address'] = req.connection.remoteAddress;
 
 		res.setHeader('Content-Type', 'application/json');
