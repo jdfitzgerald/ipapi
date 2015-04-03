@@ -64,8 +64,7 @@ app.get('/', function(req, res, next) {
 
 		var geoip = require('geoip-lite');
 		 
-		var ip = "207.97.227.239";
-		var geo = geoip.lookup(ip);
+		var geo = geoip.lookup(result.ip);
 
 		result.location = {};
 		result.location.country = geo.country;
