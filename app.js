@@ -61,7 +61,7 @@ app.set('view engine', 'handlebars');
 // Index Page
 app.get('/', function(req, res, next) {
 		var result = {'ip':req.ip};
-		result.ip='123.123.123.123';
+		//result.ip='123.123.123.123';
 		
 		var geo = geoip.lookup(result.ip);
 
