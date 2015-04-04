@@ -61,7 +61,8 @@ app.set('view engine', 'handlebars');
 // Index Page
 app.get('/', function(req, res, next) {
 		var result = {'ip':req.ip};
-
+		result.ip='123.123.123.123';
+		
 		var geo = geoip.lookup(result.ip);
 
 		result.location = {};
@@ -71,6 +72,7 @@ app.get('/', function(req, res, next) {
 			result.location.region = geo.region;
 			result.location.city = geo.city;
 			result.location.ll = geo.ll;
+			result.location.map = "https://www.google.com/maps?q="+geo.ll[0]+","+geo.ll[1];
 		}
 
 		res.setHeader('Content-Type', 'application/json');
