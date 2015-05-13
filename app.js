@@ -59,9 +59,12 @@ app.set('view engine', 'handlebars');
  * Routes
  */
 // Index Page
-app.get('/', function(req, res, next) {
+app.get('/:ip?', function(req, res, next) {
 		var result = {'ip':req.ip};
-		//result.ip='123.123.123.123';
+
+		if (req.params.ip) {
+			result.ip = req.params.ip;
+		}
 		
 		var geo = geoip.lookup(result.ip);
 
